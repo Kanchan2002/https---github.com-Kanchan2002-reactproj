@@ -13,9 +13,18 @@ function ExpenseForm() {
    const getThedate = (e) => {
         setdate(e.target.value);
    }
+    const gettheformvalue= (e)=>{
+      e.preventDefault();
+      const obj1 = {
+          title: enteredtitle,
+          amount: enteredamount,
+          date: entereddate
+      }
+      console.log(obj1);
+   }
   return (
     <div>
-      <form>
+      <form onSubmit={gettheformvalue}>
         <div className='new-expense__controls'>
             <div className='new-expense__control'>
             <label>Title</label>
