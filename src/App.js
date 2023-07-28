@@ -1,5 +1,6 @@
-import React from "react";
+import { useState } from "react";
 import Expense from "./components/Expense";
+import ExpenseForm from "./components/ExpenseForm";
 function App() {
   const expenses = [
     {
@@ -25,15 +26,28 @@ function App() {
       locationofexpendature: "wood"
     },
   ];
+  const [initialexpenses, setExpenses] = useState(expenses);
+
+  const getExpense = (getExpenseData)=>{
+        const newExpense = {
+          ...getExpenseData,
+          id: Math.random().toString()
+        }
+        setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
+        
+  }   
   return (
     <>
-      <Expense title={expenses[0].title} amount={expenses[0].amount} date = {expenses[0].date} locationofexpendature={expenses[0].locationofexpendature}/>
-      <Expense title={expenses[1].title} amount={expenses[1].amount} date = {expenses[1].date} locationofexpendature={expenses[1].locationofexpendature}/>
-      <Expense title={expenses[2].title} amount={expenses[2].amount} date = {expenses[2].date} locationofexpendature={expenses[2].locationofexpendature}/>
-      <Expense title={expenses[3].title} amount={expenses[3].amount} date = {expenses[3].date} locationofexpendature={expenses[3].locationofexpendature}/>
+      <ExpenseForm onSaveexpense = {getExpense}/>
+      
+       {initialexpenses.map((expense)=>(
+           <Expense title={expense.title} amount={expense.amount} date={expense.date} location={expense.locationofexpendature}
+         />
+       ))}
       
     </>
   );
 }
 
 export default App;
+
