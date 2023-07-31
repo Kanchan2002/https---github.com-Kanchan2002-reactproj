@@ -46,14 +46,22 @@ function App() {
     // console.log(expense.date.getFullYear());
      return expense.date.getFullYear()==filteredyear;
   })
+   let ExpenseContent = <p>No Expense found</p>
+ 
+  if (newExpense.length>0) {
+     ExpenseContent = newExpense.map((expense)=>(
+      <Expense title={expense.title} amount={expense.amount} date={expense.date} location={expense.locationofexpendature}
+    />
+    ))
+  }
+  else if(expenses.length==1) {
+    ExpenseContent = <p>Add more Expenses</p>
+  }
   return (
     <>
       <ExpenseForm onSaveexpense = {getExpense}/>
        <ExpensesFilter selected={filteredyear} onChangeFilter = {filterChangeHandler}/>
-       {newExpenses.map((expense)=>(
-           <Expense title={expense.title} amount={expense.amount} date={expense.date} location={expense.locationofexpendature}
-         />
-       ))}
+       {ExpenseContent}
       
     </>
   );
