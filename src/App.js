@@ -57,9 +57,17 @@ function App() {
   else if(expenses.length==1) {
     ExpenseContent = <p>Add more Expenses</p>
   }
+  const [isEditing,setIsEditing] = useState(false);
+  const starteditingHandler = ()=>{
+    setIsEditing(true);
+  }
+  const stopediting = ()=>{
+    setIsEditing(false);
+  }
   return (
     <>
-      <ExpenseForm onSaveexpense = {getExpense}/>
+      {!isEditing && <button onClick={starteditingHandler}>Add new Expense</button>}
+      {isEditing && <ExpenseForm onSaveexpense = {getExpense} onclose={stopediting}/>}
        <ExpensesFilter selected={filteredyear} onChangeFilter = {filterChangeHandler}/>
        {ExpenseContent}
       
